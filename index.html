@@ -88,11 +88,39 @@
                     </li>
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <form class="form-inline my-2 my-lg-0" >
+                    <input class="form-control mr-sm-2" id="search-txt" type="search" placeholder="Search" aria-label="Search">
+                     <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="fiction" value="name"
+                                checked>
+                            <label class="form-check-label" for="fiction">
+                                by Name
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="programming"
+                                 value="athuor">
+                            <label class="form-check-label" for="athuor">
+                                athuor
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="type" id="cooking" value="publisher">
+                            <label class="form-check-label" for="cooking">
+                               Publisher
+                            </label>
+                        </div> 
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="type" id="btype" value="type">
+                            <label class="form-check-label" for="cooking">
+                               type
+                            </label>
+                        </div> 
+                    </div>
+
                 </form>
+                    <button class="btn btn-outline-success my-2 my-sm-0"  id="search" >Search</button>
             </div>
         </nav>
 

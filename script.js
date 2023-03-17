@@ -255,3 +255,27 @@ function search(bookName, findBy ) {
             console.log(book);
     }
 }
+
+document.getElementById('search').addEventListener('click', function(){
+    const name = document.getElementById('search-txt').value;
+    let type;
+    let fiction = document.getElementById('fiction');
+    let programming = document.getElementById('programming');
+    let cooking = document.getElementById('cooking');
+    let btype = document.getElementById('btype');
+
+    if (fiction.checked) {
+        type = fiction.value;
+    }
+    else if (programming.checked) {
+        type = programming.value;
+    }
+    else if (cooking.checked) {
+        type = cooking.value;
+    }
+    else if (btype.checked) {
+        type = btype.value;
+    }
+    search(name , type);
+    console.log(name , type);
+});
