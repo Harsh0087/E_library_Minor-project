@@ -1,8 +1,8 @@
 'use strict';
 // login script
 const adminP = document.getElementById('admin');
-const stdP = document.getElementById('libraryForm'); 
-const loginP = document.getElementById('login-p'); 
+const stdP = document.getElementById('libraryForm');
+const loginP = document.getElementById('login-p');
 let loginD;
 let users;
 let jBook;
@@ -14,7 +14,7 @@ let req = new XMLHttpRequest();
 
 req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
-        loginD= req.responseText;
+        loginD = req.responseText;
     }
 };
 
@@ -26,7 +26,7 @@ req.send();
 let reqe = new XMLHttpRequest();
 reqe.onreadystatechange = () => {
     if (reqe.readyState == XMLHttpRequest.DONE) {
-        jBook= reqe.responseText;
+        jBook = reqe.responseText;
     }
 };
 
@@ -38,46 +38,46 @@ reqe.send();
 let books;
 setTimeout(function () {
     books = JSON.parse(jBook);
-    
+
     let tableBody = document.getElementById('tableBody');
-for (const book of books){     
-    const uiString = `<tr>
+    for (const book of books) {
+        const uiString = `<tr>
     <td>${book.id}</td>
     <td>${book.name}</td>
     <td>${book.author}</td>
     <td>${book.publisher}</td>
     <td>${book.type}</td>
     </tr>`;
-    tableBody.innerHTML += uiString;
-}
+        tableBody.innerHTML += uiString;
+    }
 }, 5000);
 
 
 // login pop 
-document.querySelector(".login-btn").addEventListener("click", function(){
+document.querySelector(".login-btn").addEventListener("click", function () {
     document.querySelector('.login-pop').classList.toggle('hidden');
 });
 
-document.querySelector(".btnnn").addEventListener("click", function(){
+document.querySelector(".btnnn").addEventListener("click", function () {
     document.querySelector('.login-pop').classList.toggle('hidden');
 });
-const hid = function(){
-loginP.classList.toggle('hidden');
+const hid = function () {
+    loginP.classList.toggle('hidden');
 }
 
-document.querySelector("#submit").addEventListener("click", function(){
+document.querySelector("#submit").addEventListener("click", function () {
     const user = document.querySelector('#user').value;
-    users =JSON.parse(loginD);
-    
+    users = JSON.parse(loginD);
+
     // console.log(uPower);
-    if(users.admin.name === user){
+    if (users.admin.name === user) {
         adminP.classList.toggle('hidden');
         hid();
     }
-    else{
+    else {
         adminP.classList.toggle('hidden');
         stdP.classList.toggle('hidden');
-        document.getElementById('userForm').classList.toggle('hidden'); 
+        document.getElementById('userForm').classList.toggle('hidden');
         hid();
     }
 
@@ -138,10 +138,10 @@ class Display {
     show(type, displayMessage) {
         let message = document.getElementById('message');
         let boldText;
-        if(type==='success'){
+        if (type === 'success') {
             boldText = 'Success';
         }
-        else{
+        else {
             boldText = 'Error!';
         }
         message.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
@@ -153,42 +153,42 @@ class Display {
         setTimeout(function () {
             message.innerHTML = ''
         }, 5000);
-    
+
     }
 }
 
 // add new user function
 const userForm = document.getElementById('userForm');
 
-userForm.addEventListener('submit', function(e) {
+userForm.addEventListener('submit', function (e) {
     const className = document.getElementById('class').value;
     const name = document.getElementById('userName').value;
     const passwd = document.getElementById('passwd').value;
-    
+
     const newUser = {
-        id : users.admin.users + 1,
-        name : name,
-        class : className,
-        passwd : passwd,
+        id: users.admin.users + 1,
+        name: name,
+        class: className,
+        passwd: passwd,
     };
 
 
     users.users.push(newUser);
-    users.admin.user ++;
-    
+    users.admin.user++;
+
     // uploading new user data on database
 
-    fetch('https://api.jsonbin.io/v3/b/64030be9ace6f33a22e92074?meta=false ' ,{
-        method : 'PUT',
+    fetch('https://api.jsonbin.io/v3/b/64030be9ace6f33a22e92074?meta=false ', {
+        method: 'PUT',
         body: JSON.stringify(users),
         headers: {
             'Content-type': 'application/json',
             "X-Access-Key": "$2b$10$yCt1TczM9drUVreBsiuKjubH1z/W5ZkloK7Aj/NQFxAbBiqWNN8OO",
         },
     })
-    .then(res=> res.json())
-    .then(data => console.log(data))
-    
+        .then(res => res.json())
+        .then(data => console.log(data))
+
 
     e.preventDefault();
 });
@@ -211,30 +211,30 @@ function libraryFormSubmit(e) {
     let book = new Book(id, name, author, publisher, type);
     books.push(book);
 
-    
-    
+
+
     let display = new Display();
-    
+
     if (display.validate(book)) {
-        
+
         display.add(book);
         display.clear();
 
         // uploading new book to database
         let req = new XMLHttpRequest();
-    
+
         req.onreadystatechange = () => {
             if (req.readyState == XMLHttpRequest.DONE) {
-            console.log(req.responseText);
-         }
+                console.log(req.responseText);
+            }
         };
-    
+
         req.open("PUT", "https://api.jsonbin.io/v3/b/64081c59c0e7653a058439f8?meta=false", true);
         req.setRequestHeader("Content-Type", "application/json");
         req.setRequestHeader("X-Access-Key", "$2b$10$yCt1TczM9drUVreBsiuKjubH1z/W5ZkloK7Aj/NQFxAbBiqWNN8OO");
         req.send(JSON.stringify(books));
 
-        
+
         display.show('success', 'Your book has been successfully added')
     }
     else {
@@ -248,21 +248,58 @@ function libraryFormSubmit(e) {
 
 // book  search function
 
+class DisplaySearchBook {
 
-function search(bookName, findBy ) {
-    for(const book of books){
-        if(book[findBy] === bookName)
-            console.log(book);
+    deleteBook(books, indexs) {
+        indexs = indexs.reverse();
+        for (const index of indexs) {
+            books.splice(index, 1);
+        }
+        return books
     }
+
+    search(bookName, findBy) {
+        document.getElementById('tableBody').innerHTML = '';
+        const add = new Display().add;
+        const sBa = [];
+        let clonedBooks = JSON.parse(JSON.stringify(books));
+        for (const [index, book] of books.entries()) {
+            if (book[findBy].toLowerCase() === bookName.toLowerCase()){
+                add(book);
+                sBa.push(index);
+            }
+        }
+        clonedBooks = this.deleteBook(clonedBooks, sBa);
+        const sName = bookName.split(' ');
+
+        for (const book of clonedBooks) {
+            const cBook = book[findBy].split(' ');
+            loop1:
+            for (const name of sName) {
+                loop2:
+                for (const spName of cBook) {
+                    if (spName.toLowerCase() === name.toLowerCase()) {
+                        add(book);
+                        break loop1;
+                    }
+                }
+            }
+        }
+
+    }
+
+    displaySBook() { }
+
 }
 
-document.getElementById('search').addEventListener('click', function(){
+document.getElementById('search').addEventListener('click', function () {
     const name = document.getElementById('search-txt').value;
     let type;
     let fiction = document.getElementById('fiction');
     let programming = document.getElementById('programming');
     let cooking = document.getElementById('cooking');
     let btype = document.getElementById('btype');
+    const displaySearch = new DisplaySearchBook();
 
     if (fiction.checked) {
         type = fiction.value;
@@ -276,6 +313,6 @@ document.getElementById('search').addEventListener('click', function(){
     else if (btype.checked) {
         type = btype.value;
     }
-    search(name , type);
-    console.log(name , type);
+    displaySearch.search(name, type);
+    // console.log(name , type);
 });
