@@ -1,5 +1,5 @@
 'use strict'
- import { users } from "/js/get-data.js";
+ import { users } from "./js/get-data.js";
 // add new user function
 const userForm = document.getElementById('userForm');
 
