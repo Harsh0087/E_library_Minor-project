@@ -1,5 +1,5 @@
 'use strict';
-import {  books } from "/js/get-data.js";
+import {  books } from "js/get-data.js";
 import {} from '/js/login.js';
 import {} from '/js/addNewUser.js';
 import {} from "/js/bookDisplay.js";
