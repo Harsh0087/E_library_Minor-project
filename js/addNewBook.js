@@ -1,7 +1,7 @@
 'use strick'
 
-import { Book, Display } from "/js/bookDisplay.js";
-import { books } from "/js/get-data.js";
+// import { Book, Display } from "/js/bookDisplay.js";
+// import { books } from "/js/get-data.js";
 
 // Add submit event listener to add new book
 let libraryForm = document.getElementById('libraryForm');
