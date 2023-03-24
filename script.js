@@ -1,6 +1,6 @@
 'use strict';
-import {  books } from "/get-data.js";
-import {} from '/login.js';
+import {  books } from "E_library_Minor-project/get-data.js";
+import {} from '/E_library_Minor-project/login.js';
 import {} from '/addNewUser.js';
 import {} from "/bookDisplay.js";
 import {} from '/addNewBook.js';
