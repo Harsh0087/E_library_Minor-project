@@ -1,7 +1,7 @@
 'use strict'
 
-// import { books} from "/js/get-data.js";
-// import { Display } from "/js/bookDisplay.js";
+import { books} from "/js/get-data.js";
+import { Display } from "/js/bookDisplay.js";
 // book  search function
 
 class DisplaySearchBook {
